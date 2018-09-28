@@ -1,19 +1,34 @@
+
+
 import csv
 from statistics import mode
 
-import pandas as pd
 from math import sqrt
 import copy
 
 
+
+def mainFunction():
+    trainingSet,testSet=read_file_into_array()
+    classified_items = Classify_items(testSet, trainingSet)
+    accuracy=computeAccuracy(classified_items)
+    print(classified_items)
+    print(accuracy)
+
+
 def read_file_into_array():
+    testSet=[]
+    testSet=[]
     with open('IRIS.csv', newline='') as csvfile:
          data = list(csv.reader(csvfile))
          divider=int(len(data)*0.64)
          testSet=data[divider:]
          trainingSet=data[:divider]
+    return trainingSet,testSet
+
+def Classify_items(testSet,trainingSet):
          # loop through training set classifying each data
-         for testItem in testSet:
+         for index,testItem in enumerate(testSet):
              workingTrainingSet=copy.deepcopy(trainingSet)
              for trainingItem in workingTrainingSet:
                  distance=defcomputeDistance(testItem,trainingItem)
@@ -22,11 +37,12 @@ def read_file_into_array():
              first3=sortedList[:3]
              clasification=mode([first3[0][4],first3[1][4],first3[2][4]])
              testItem.append(clasification)
-    print(computeAccuracy(testSet) ,'percent')
+         return testSet
 
 def defcomputeDistance(x,y):
     distance =sqrt((float(x[0])-float(y[0]))**2 + (float(x[1])-float(y[1]))**2 + (float(x[2])-float(y[2]))**2 + (float(x[3])-float(y[3]))**2)
     return distance
+
 def computeAccuracy(testset):
      counter=0
      for x in testset:
@@ -36,13 +52,4 @@ def computeAccuracy(testset):
      return accuracy
 
 
-
-
-def read_csv_pandas():
-     data= pd.read_csv('IRIS.csv')
-     
-     print(data)
-
-# read_csv_pd()
-# read_file_into_array()
-read_csv_pandas()
+mainFunction()

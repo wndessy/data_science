@@ -13,7 +13,7 @@ def mainFunction():
     classified_items = Classify_items(testSet, trainingSet)
     accuracy=computeAccuracy(classified_items)
     print(classified_items)
-    print(accuracy)
+    print('accuracy=',accuracy)
 
 
 def read_file_into_array():
@@ -21,9 +21,9 @@ def read_file_into_array():
     testSet=[]
     with open('IRIS.csv', newline='') as csvfile:
          data = list(csv.reader(csvfile))
-         divider=int(len(data)*0.64)
-         testSet=data[divider:]
-         trainingSet=data[:divider]
+         divider=int(len(data)*0.66)
+         testSet=data[:divider]
+         trainingSet=data[divider:]
     return trainingSet,testSet
 
 def Classify_items(testSet,trainingSet):
@@ -50,6 +50,5 @@ def computeAccuracy(testset):
              counter+=1
      accuracy=round((counter/len(testset))*100,2)
      return accuracy
-
 
 mainFunction()

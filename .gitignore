@@ -1,3 +1,5 @@
 .idea/*
 venv*
 notebooks/.ipynb*
+*checkpoints*
+*Restaurant-data*
